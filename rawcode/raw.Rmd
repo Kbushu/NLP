@@ -16,15 +16,41 @@ knitr::opts_chunk$set(echo = TRUE)
 # Task 1 - Getting and cleaning the data
 We might not want to get all the data, file is very big, sample the file. Put sample in mycorpus
 
-```{r}
-slctfile <- file.choose()
-con <- file(slctfile, "r") 
-readLines(con, 1) ## Read the first line of text 
-readLines(con, 1) ## Read the next line of text 
-readLines(con, 5) ## Read in the next 5 lines of text 
-close(con) ## It's important to close the connection when you are done
+```{r getdata, eval=FALSE}
+# slctfile <- file.choose()
+slctfile <- "C:\\Users\\khuisamen\\Documents\\40 L&G\\Coursera\\DataScience\\A_CP\\train\\final\\en_US\\en_US.twitter.txt"
+#zipfile
+# zipfile <- paste0(dirname(slctfile), "/train.zip")
+# zip(zipfile = zipfile, files = slctfile)
+# readLines(con, 1) ## Read the first line of text 
+# readLines(con, 1) ## Read the next line of text 
+# readLines(con, 5) ## Read in the next 5 lines of text 
+# close(con) ## It's important to close the connection when you are done
+
+# determine numbers of lines 
+# testcon <- file("xyzfile.csv.bz2",open="r")
+con <- file(slctfile, "r")
+readsizeof <- 100
+nooflines <- 0
+(while((linesread <- length(readLines(con = con, 
+                                      n = readsizeof, 
+                                      warn = FALSE))) > 0 )
+  nooflines <- nooflines+linesread)
+
+close(con)
+nooflines
+
+#read lines into sample df
+sample <- data.frame(Tokens = scan(file = slctfile, 
+                                   what = "character",
+                                   nlines = 10, 
+                                   strip.white = TRUE))
+#scan function could be usefull
+
+#Can also read from compressed files, so can create a compressed sample.
 
 #Create random sample
+
 
 ```
 
